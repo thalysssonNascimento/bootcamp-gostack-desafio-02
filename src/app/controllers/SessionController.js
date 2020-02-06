@@ -1,22 +1,23 @@
 import jwt from 'jsonwebtoken';
-// import * as Yup from 'yup';
+import * as Yup from 'yup';
 
 import User from '../models/User';
 import authConfig from '../../config/auth';
 
 class SessionController {
     async store(req, res) {
-        // const schema = Yup.object().shape({
-        //     email: Yup.string().email(),
-        //     cnpj: Yup.string(),
-        //     password: Yup.string()
-        //         .required()
-        //         .min(6),
-        // });
+        const schema = Yup.object().shape({
+            email: Yup.string()
+                .email()
+                .required(),
+            password: Yup.string().required(),
+        });
 
-        // if (!(await schema.isValid(req.body))) {
-        //     return res.status(400).json({ error: 'Erro de validação' });
-        // }
+        if (!(await schema.isValid(req.body))) {
+            return res
+                .status(400)
+                .json({ error: 'Erro na validação de dados' });
+        }
 
         const { email, password } = req.body;
 
