@@ -24,7 +24,9 @@ class RecipientController {
         const user = await User.findByPk(req.userId);
 
         if (user.provider !== 'admin') {
-            return res.status(401).json({error: 'O usuário não é administrador'});
+            return res
+                .status(401)
+                .json({ error: 'O usuário não é administrador' });
         }
 
         const {
